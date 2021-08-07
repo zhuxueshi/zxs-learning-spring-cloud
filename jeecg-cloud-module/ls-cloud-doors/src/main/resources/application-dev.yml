@@ -1,0 +1,13 @@
+server:
+  #微服务端口
+  port: 7011
+  servlet:
+    context-path:
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ip: 172.18.192.85
+        port: ${server.port}
+  application:
+    name: ls-cloud-doors

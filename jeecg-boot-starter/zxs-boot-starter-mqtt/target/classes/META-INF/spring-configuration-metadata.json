@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "mqtt",
+      "type": "org.jeecg.boot.starter.mqtt.MqttConfig",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "mqtt.client-i-d",
+      "type": "java.lang.String",
+      "description": "客户Id",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    },
+    {
+      "name": "mqtt.default-topic",
+      "type": "java.lang.String",
+      "description": "默认连接话题",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    },
+    {
+      "name": "mqtt.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "mqtt.host-url",
+      "type": "java.lang.String",
+      "description": "连接地址",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    },
+    {
+      "name": "mqtt.keepalive",
+      "type": "java.lang.Integer",
+      "description": "保持连接数",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "mqtt.password",
+      "type": "java.lang.String",
+      "description": "密码",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    },
+    {
+      "name": "mqtt.timeout",
+      "type": "java.lang.Integer",
+      "description": "超时时间",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "mqtt.username",
+      "type": "java.lang.String",
+      "description": "用户名",
+      "sourceType": "org.jeecg.boot.starter.mqtt.MqttConfig"
+    }
+  ],
+  "hints": []
+}

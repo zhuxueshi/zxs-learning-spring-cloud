@@ -1,0 +1,56 @@
+{
+  "groups": [
+    {
+      "name": "jeecg.xxljob",
+      "type": "org.jeecg.boot.starter.job.prop.XxlJobProperties",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jeecg.xxljob.access-token",
+      "type": "java.lang.String",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    },
+    {
+      "name": "jeecg.xxljob.admin-addresses",
+      "type": "java.lang.String",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    },
+    {
+      "name": "jeecg.xxljob.appname",
+      "type": "java.lang.String",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    },
+    {
+      "name": "jeecg.xxljob.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启xxljob",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "jeecg.xxljob.ip",
+      "type": "java.lang.String",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    },
+    {
+      "name": "jeecg.xxljob.log-path",
+      "type": "java.lang.String",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties"
+    },
+    {
+      "name": "jeecg.xxljob.log-retention-days",
+      "type": "java.lang.Integer",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "jeecg.xxljob.port",
+      "type": "java.lang.Integer",
+      "sourceType": "org.jeecg.boot.starter.job.prop.XxlJobProperties",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

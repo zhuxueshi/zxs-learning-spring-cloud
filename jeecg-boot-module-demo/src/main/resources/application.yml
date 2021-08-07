@@ -1,0 +1,10 @@
+server:
+  port: 7002
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ip: 172.18.192.85
+        port: ${server.port}
+  application:
+    name: jeecg-demo

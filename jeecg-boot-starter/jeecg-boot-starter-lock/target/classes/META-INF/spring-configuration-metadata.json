@@ -1,0 +1,44 @@
+{
+  "groups": [
+    {
+      "name": "jeecg.redisson",
+      "type": "org.jeecg.boot.starter.lock.prop.RedissonProperties",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jeecg.redisson.address",
+      "type": "java.lang.String",
+      "description": "redis主机地址，ip：port，多个用逗号(,)分隔",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties"
+    },
+    {
+      "name": "jeecg.redisson.database",
+      "type": "java.lang.Integer",
+      "description": "数据库(默认0)",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "jeecg.redisson.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否装配redisson配置",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "jeecg.redisson.password",
+      "type": "java.lang.String",
+      "description": "密码",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties"
+    },
+    {
+      "name": "jeecg.redisson.type",
+      "type": "org.jeecg.boot.starter.lock.enums.RedisConnectionType",
+      "description": "连接类型",
+      "sourceType": "org.jeecg.boot.starter.lock.prop.RedissonProperties"
+    }
+  ],
+  "hints": []
+}
