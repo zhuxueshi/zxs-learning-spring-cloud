@@ -1,15 +1,19 @@
 package com.ls.modules.service;
 
-import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.ls.modules.hbase.HbaseUtils;
 import com.ls.modules.mapper.BasDeviceMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.jeecg.entity.BasDevice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +29,9 @@ import java.util.concurrent.Executors;
 public class BasDeviceServiceImpl extends ServiceImpl<BasDeviceMapper, BasDevice> implements IBasDeviceService {
     @Resource
     private BasDeviceMapper basDeviceMapper;
+    @Autowired
+    @Lazy
+    private BroadcastUdpDeviceService broadcastUdpDeviceService;
     @Resource
     private HbaseUtils hbaseUtils;
     @Override
@@ -37,8 +44,19 @@ public class BasDeviceServiceImpl extends ServiceImpl<BasDeviceMapper, BasDevice
 
     @Override
     public void saveDeviceInfo(byte [] bytes) {
-//        log.info("\r\n 保存广播设备信息");
         doData(bytes);
+    }
+
+    @Override
+    public List<JSONObject> searchDevice() {
+        broadcastUdpDeviceService.searchFK0();
+        List<JSONObject> list = hbaseUtils.getALLData("bas_device");
+        return list;
+    }
+
+    @Override
+    public void batchSaveDeviceFR0(List<JSONObject> list) {
+        if(CollectionUtils.isNotEmpty(list)) hbaseUtils.batchInsertOrUpdate("bas_device","info",list);
     }
 
     public void doData(byte [] datas){

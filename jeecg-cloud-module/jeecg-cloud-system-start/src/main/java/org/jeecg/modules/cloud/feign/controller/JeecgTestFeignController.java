@@ -2,6 +2,7 @@ package org.jeecg.modules.cloud.feign.controller;
 
 
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -42,10 +43,10 @@ public class JeecgTestFeignController {
 
     @GetMapping("getDeviceList")
     @ApiOperation(value = "服务调用获取设备", notes = "服务调用获取设备")
-    public List<BasDevice> getDeviceList() {
-        List<BasDevice> result = doorsServiceClient.getDeviceList();
+    public List<JSONObject> getDeviceList() {
+        List<JSONObject> result = doorsServiceClient.getDeviceList();
         log.info("\r\n设备信息 doorsServiceClient:{}",result);
-        result = zxsCloudSchoolClient.getDeviceList();
+//        result = zxsCloudSchoolClient.getDeviceList();
         log.info("\r\n设备信息 zxsCloudSchoolClient:{}",result);
         return result;
     }

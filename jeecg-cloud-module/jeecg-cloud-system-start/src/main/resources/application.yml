@@ -9,3 +9,9 @@ spring:
         port: ${server.port}
   application:
     name: jeecg-system
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 200000
+        readTimeout: 200000

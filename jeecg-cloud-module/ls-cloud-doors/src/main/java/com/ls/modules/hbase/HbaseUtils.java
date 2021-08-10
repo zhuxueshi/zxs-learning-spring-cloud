@@ -1,7 +1,11 @@
 package com.ls.modules.hbase;
 
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -23,24 +27,6 @@ import java.util.List;
 public class HbaseUtils {
     @Autowired
     private Connection hbaseConnection;
-    /**
-     * HBASE 表名称
-     */
-    public  final String TABLE_NAME = "doc";
-    /**
-     * 列簇1 文章信息
-     */
-    public  final String COLUMNFAMILY_1 = "cf";
-    /**
-     * 列簇1中的列
-     */
-    public  final String COLUMNFAMILY_1_TITLE = "title";
-    public  final String COLUMNFAMILY_1_AUTHOR = "author";
-    public  final String COLUMNFAMILY_1_CONTENT = "content";
-    public  final String COLUMNFAMILY_1_DESCRIBE = "describe";
-
-
-
 //    public static Admin admin = null;
 //    public static Configuration conf = null;
 //    public static Connection conn = null;
@@ -147,7 +133,8 @@ public class HbaseUtils {
      * 获取表的所有数据
      * @param tableName
      */
-    public void getALLData(String tableName) {
+    public List<JSONObject> getALLData(String tableName) {
+        List<JSONObject> list = Lists.newArrayList();
         try {
             Table table = hbaseConnection.getTable(TableName.valueOf(tableName));
             Scan scan = new Scan();
@@ -155,13 +142,18 @@ public class HbaseUtils {
             int recordCount = 0;
             for (Result result : scanner) {
                 List<Cell> cells = result.listCells();
+                JSONObject object = new JSONObject();
+                object.put("id",new String(result.getRow()));
 				for (Cell cell : cells) {
 					String qualifier = new String(CellUtil.cloneQualifier(cell));
 					String value = new String(CellUtil.cloneValue(cell), "UTF-8");
-					log.info("\r\n【id】:{}\t【{}】:{}",new String(result.getRow()), qualifier ,value);
+//					log.info("\r\n【id】:{}\t【{}】:{}",new String(result.getRow()), qualifier ,value);
+                    object.put(qualifier,value);
 				}
+				list.add(object);
                 recordCount++;
-				log.info("\r\n===============================================");
+//				log.info("\r\n===============================================");
+
 //                if(result.raw().length==0){
 //                    System.out.println(tableName+" 表数据为空！");
 //                }else{
@@ -174,7 +166,7 @@ public class HbaseUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return list;
     }
 
     // 读取一条记录
@@ -218,7 +210,51 @@ public class HbaseUtils {
 //        put.addColumn("cf1".getBytes(),"data1".getBytes(),"abcdf111".getBytes());
 //        table.put(put);
             table.put(put);
-            log.info("\r\n 保存hbase数据成功:tableName:{},Data:{}",tableName,put);
+            log.info("\r\n 保存hbase数据成功[{}]:{}",tableName,put);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void insert(String tableName,String family,String rowKey,JSONObject object) {
+        try {
+            Table table = hbaseConnection.getTable(TableName.valueOf(tableName));
+            Put put = new Put((rowKey).getBytes());
+            object.forEach((key,val)->{
+                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(key), val.toString().getBytes());
+            });
+            table.put(put);
+            log.info("\r\n 保存hbase数据成功[{}]:{}",tableName,put);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 批量插入或更新
+     * @param tableName
+     * @param family
+     * @param list
+     */
+    public void batchInsertOrUpdate(String tableName,String family,List<JSONObject> list) {
+        if(list == null || CollectionUtils.isEmpty(list) || tableName == null || family == null){
+            log.info("\r\n 存在参数为空:tableName:{};family:{};list:{}",tableName,family,list);
+            return;
+        }
+        List<Put> putList = Lists.newArrayList();
+        for (JSONObject object : list) {
+            String rowKey = object.getString("SerialNum") + "_" + object.getString("Ipaddr");
+            Put put = new Put((rowKey).getBytes());
+            object.forEach((key,val)->{
+                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(key), val.toString().getBytes());
+                putList.add(put);
+            });
+        }
+        try {
+            long beginTime = System.currentTimeMillis();
+            Table table = hbaseConnection.getTable(TableName.valueOf(tableName));
+            table.put(putList);
+            long endTime = System.currentTimeMillis();
+            log.info("\r\n 批量操作hbase成功:共{}条,耗时:{}ms",list.size(),endTime-beginTime);
         } catch (IOException e) {
             e.printStackTrace();
         }

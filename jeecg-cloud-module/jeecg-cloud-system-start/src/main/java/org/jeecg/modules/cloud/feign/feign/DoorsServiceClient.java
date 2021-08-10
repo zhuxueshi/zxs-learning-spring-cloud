@@ -1,5 +1,6 @@
 package org.jeecg.modules.cloud.feign.feign;
 
+import com.alibaba.fastjson.JSONObject;
 import org.jeecg.entity.BasDevice;
 import org.jeecg.modules.cloud.feign.feign.fallback.JeecgTestClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,5 +17,5 @@ import java.util.List;
 public interface DoorsServiceClient {
 
     @GetMapping(value = "/dev/list")
-    List<BasDevice> getDeviceList();
+    List<JSONObject> getDeviceList();
 }

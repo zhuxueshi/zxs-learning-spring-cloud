@@ -34,6 +34,7 @@ public class InitStartCanalClient implements CommandLineRunner {
             public void run() {
 //                startCanalClient();
                 broadcastUdpDeviceService.listenDevice();
+//                broadcastUdpDeviceService.listenDevice50727();
             }
         });
     }
