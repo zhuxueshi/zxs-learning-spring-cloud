@@ -135,6 +135,7 @@ public class HbaseUtils {
      */
     public List<JSONObject> getALLData(String tableName) {
         List<JSONObject> list = Lists.newArrayList();
+        long beginTime = System.currentTimeMillis();
         try {
             Table table = hbaseConnection.getTable(TableName.valueOf(tableName));
             Scan scan = new Scan();
@@ -162,7 +163,8 @@ public class HbaseUtils {
 //                    }
 //                }
             }
-            log.info("\r\n 查询记录数:共{}条",recordCount);
+            long endTime = System.currentTimeMillis();
+            log.info("\r\n 查询记录数:共{}条,耗时:{}ms",recordCount,(endTime-beginTime));
         } catch (IOException e) {
             e.printStackTrace();
         }

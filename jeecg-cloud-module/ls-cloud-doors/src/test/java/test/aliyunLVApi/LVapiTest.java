@@ -9,6 +9,13 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LVapiTest {
+    //web平台端
+    static String appKey = "29177123";
+    static String appSecret = "c1c0124e320d079b6925a19b546fd16d";
+    static String token = "1e4ce6edb37547b6aa1341b4a9eb7bee";
+    //Android APP端
+    //    static String appKey = "31797845";
+    //    static String appSecret = "f31b198f8e8efd78ad0ab1698b70fe59";
     public static void main(String[] args) {
 //        getToken();
         queryIdentityByPage();
@@ -16,10 +23,12 @@ public class LVapiTest {
     }
     public static String getToken(){
         IoTApiClientBuilderParams ioTApiClientBuilderParams = new IoTApiClientBuilderParams();
-//        ioTApiClientBuilderParams.setAppKey("29177123");
-//        ioTApiClientBuilderParams.setAppSecret("c1c0124e320d079b6925a19b546fd16d");
-        ioTApiClientBuilderParams.setAppKey("31797845");
-        ioTApiClientBuilderParams.setAppSecret("f31b198f8e8efd78ad0ab1698b70fe59");
+        //web平台端
+        ioTApiClientBuilderParams.setAppKey(appKey);
+        ioTApiClientBuilderParams.setAppSecret(appSecret);
+        //Android APP端
+//        ioTApiClientBuilderParams.setAppKey("31797845");
+//        ioTApiClientBuilderParams.setAppSecret("f31b198f8e8efd78ad0ab1698b70fe59");
         SyncApiClient syncClient = new SyncApiClient(ioTApiClientBuilderParams)    ;
 
         IoTApiRequest request = new IoTApiRequest();
@@ -53,16 +62,16 @@ public class LVapiTest {
         IoTApiClientBuilderParams ioTApiClientBuilderParams = new IoTApiClientBuilderParams();
 //        ioTApiClientBuilderParams.setAppKey("29177123");
 //        ioTApiClientBuilderParams.setAppSecret("c1c0124e320d079b6925a19b546fd16d");
-        ioTApiClientBuilderParams.setAppKey("29225273");
-        ioTApiClientBuilderParams.setAppSecret("8860d00c85dc468e3deec54f2a9e9117");
-        SyncApiClient syncClient = new SyncApiClient(ioTApiClientBuilderParams)    ;
+        ioTApiClientBuilderParams.setAppKey(appKey);
+        ioTApiClientBuilderParams.setAppSecret(appSecret);
+        SyncApiClient syncClient = new SyncApiClient(ioTApiClientBuilderParams);
 
         IoTApiRequest request = new IoTApiRequest();
         //设置API的版本
         //调用/cloud/token接口时，不需要传CloudToken，请参见获取云端资源Token接口的代码示例
         //调用其他接口（除获取云端资源Token接口外），都需要先调用获取云端资源Token接口，获取到token后，再传入ApiVer和CloudToken，才可以正常调用
         request.setApiVer("1.0.0");
-        request.setCloudToken("6285a9da389c40609afe1e22d7f46c0f");
+        request.setCloudToken(token);
 
         //设置接口的参数
         request.putParam("grantType", "project");
@@ -88,10 +97,10 @@ public class LVapiTest {
     public static void importAccount(){
         // https://github.com/aliyun/iotx-api-gateway-client
         IoTApiClientBuilderParams ioTApiClientBuilderParams = new IoTApiClientBuilderParams();
-//        ioTApiClientBuilderParams.setAppKey("29225273");
-//        ioTApiClientBuilderParams.setAppSecret("8860d00c85dc468e3deec54f2a9e9117");
-        ioTApiClientBuilderParams.setAppKey("31797845");
-        ioTApiClientBuilderParams.setAppSecret("f31b198f8e8efd78ad0ab1698b70fe59");
+        ioTApiClientBuilderParams.setAppKey(appKey);
+        ioTApiClientBuilderParams.setAppSecret(appSecret);
+//        ioTApiClientBuilderParams.setAppKey("31797845");
+//        ioTApiClientBuilderParams.setAppSecret("f31b198f8e8efd78ad0ab1698b70fe59");
         SyncApiClient syncApiClient = new SyncApiClient(ioTApiClientBuilderParams);
         IoTApiRequest request = new IoTApiRequest();
 // 设置请求ID
